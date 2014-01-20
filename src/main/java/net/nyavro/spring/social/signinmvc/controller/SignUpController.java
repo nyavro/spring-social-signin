@@ -1,4 +1,4 @@
-package net.nyavro.spring.social.signinmvc.security.controller;
+package net.nyavro.spring.social.signinmvc.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

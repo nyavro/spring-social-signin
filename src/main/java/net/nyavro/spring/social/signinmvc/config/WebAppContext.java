@@ -15,11 +15,7 @@ import org.springframework.web.servlet.view.JstlView;
 import java.util.Properties;
 
 @Configuration
-@ComponentScan(basePackages = {
-        "net.nyavro.spring.social.signinmvc.common.controller",
-        "net.nyavro.spring.social.signinmvc.security.controller",
-        "net.nyavro.spring.social.signinmvc.user.controller"
-})
+@ComponentScan(basePackages = {"net.nyavro.spring.social.signinmvc.controller"})
 @EnableWebMvc
 public class WebAppContext extends WebMvcConfigurerAdapter {
 

@@ -1,4 +1,4 @@
-package net.nyavro.spring.social.signinmvc.user.controller;
+package net.nyavro.spring.social.signinmvc.controller;
 
 import net.nyavro.spring.social.signinmvc.security.util.SecurityUtil;
 import net.nyavro.spring.social.signinmvc.user.dto.RegistrationForm;
