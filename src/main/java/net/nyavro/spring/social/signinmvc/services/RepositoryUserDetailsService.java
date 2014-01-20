@@ -1,4 +1,4 @@
-package net.nyavro.spring.social.signinmvc.security.service;
+package net.nyavro.spring.social.signinmvc.services;
 
 import net.nyavro.spring.social.signinmvc.repository.UserRepository;
 import net.nyavro.spring.social.signinmvc.security.dto.ExampleUserDetails;
