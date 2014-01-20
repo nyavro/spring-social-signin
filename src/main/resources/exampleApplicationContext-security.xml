@@ -82,7 +82,7 @@
         This bean is used to load the user specific data when social sign in
         is used.
     -->
-    <bean id="socialUserDetailsService" class="net.nyavro.spring.social.signinmvc.security.service.SimpleSocialUserDetailsService">
+    <bean id="socialUserDetailsService" class="net.nyavro.spring.social.signinmvc.services.SimpleSocialUserDetailsService">
         <constructor-arg index="0" ref="userDetailsService"/>
     </bean>
 

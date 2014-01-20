@@ -2,7 +2,7 @@ package net.nyavro.spring.social.signinmvc.config;
 
 import net.nyavro.spring.social.signinmvc.repository.UserRepository;
 import net.nyavro.spring.social.signinmvc.services.RepositoryUserDetailsService;
-import net.nyavro.spring.social.signinmvc.security.service.SimpleSocialUserDetailsService;
+import net.nyavro.spring.social.signinmvc.services.SimpleSocialUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
