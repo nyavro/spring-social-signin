@@ -1,4 +1,4 @@
-package net.nyavro.spring.social.signinmvc.user.service;
+package net.nyavro.spring.social.signinmvc.services;
 
 public class DuplicateEmailException extends Exception {
 

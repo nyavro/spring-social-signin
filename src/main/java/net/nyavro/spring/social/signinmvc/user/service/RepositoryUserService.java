@@ -3,6 +3,7 @@ package net.nyavro.spring.social.signinmvc.user.service;
 import net.nyavro.spring.social.signinmvc.repository.UserRepository;
 import net.nyavro.spring.social.signinmvc.model.dto.RegistrationForm;
 import net.nyavro.spring.social.signinmvc.model.User;
+import net.nyavro.spring.social.signinmvc.services.DuplicateEmailException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
