@@ -1,7 +1,7 @@
 package net.nyavro.spring.social.signinmvc.security.dto;
 
-import net.nyavro.spring.social.signinmvc.user.model.Role;
-import net.nyavro.spring.social.signinmvc.user.model.SocialMediaService;
+import net.nyavro.spring.social.signinmvc.model.Role;
+import net.nyavro.spring.social.signinmvc.model.SocialMediaService;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

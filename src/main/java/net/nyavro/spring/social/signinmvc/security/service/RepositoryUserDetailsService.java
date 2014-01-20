@@ -2,7 +2,7 @@ package net.nyavro.spring.social.signinmvc.security.service;
 
 import net.nyavro.spring.social.signinmvc.repository.UserRepository;
 import net.nyavro.spring.social.signinmvc.security.dto.ExampleUserDetails;
-import net.nyavro.spring.social.signinmvc.user.model.User;
+import net.nyavro.spring.social.signinmvc.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

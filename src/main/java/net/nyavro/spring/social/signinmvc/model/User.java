@@ -1,4 +1,4 @@
-package net.nyavro.spring.social.signinmvc.user.model;
+package net.nyavro.spring.social.signinmvc.model;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.joda.time.DateTime;

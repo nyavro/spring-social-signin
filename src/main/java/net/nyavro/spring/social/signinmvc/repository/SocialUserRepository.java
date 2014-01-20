@@ -1,6 +1,6 @@
 package net.nyavro.spring.social.signinmvc.repository;
 
-import net.nyavro.spring.social.signinmvc.user.model.User;
+import net.nyavro.spring.social.signinmvc.model.User;
 import org.bson.types.ObjectId;
 import org.springframework.data.repository.PagingAndSortingRepository;
 

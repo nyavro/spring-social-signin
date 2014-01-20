@@ -1,7 +1,7 @@
 package net.nyavro.spring.social.signinmvc.user.service;
 
 import net.nyavro.spring.social.signinmvc.user.dto.RegistrationForm;
-import net.nyavro.spring.social.signinmvc.user.model.User;
+import net.nyavro.spring.social.signinmvc.model.User;
 
 public interface UserService {
 

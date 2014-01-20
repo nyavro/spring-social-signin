@@ -1,4 +1,4 @@
-package net.nyavro.spring.social.signinmvc.user.model;
+package net.nyavro.spring.social.signinmvc.model;
 
 public enum SocialMediaService {
     FACEBOOK,

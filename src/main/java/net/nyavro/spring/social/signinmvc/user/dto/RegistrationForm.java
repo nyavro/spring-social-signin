@@ -1,6 +1,6 @@
 package net.nyavro.spring.social.signinmvc.user.dto;
 
-import net.nyavro.spring.social.signinmvc.user.model.SocialMediaService;
+import net.nyavro.spring.social.signinmvc.model.SocialMediaService;
 import net.nyavro.spring.social.signinmvc.user.validation.PasswordsNotEmpty;
 import net.nyavro.spring.social.signinmvc.user.validation.PasswordsNotEqual;
 import org.apache.commons.lang3.builder.ToStringBuilder;
