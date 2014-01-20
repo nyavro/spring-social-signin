@@ -1,4 +1,4 @@
-package net.nyavro.spring.social.signinmvc.security.util;
+package net.nyavro.spring.social.signinmvc.utils;
 
 import net.nyavro.spring.social.signinmvc.security.dto.ExampleUserDetails;
 import net.nyavro.spring.social.signinmvc.model.User;

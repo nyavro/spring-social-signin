@@ -1,7 +1,4 @@
-package net.nyavro.spring.social.signinmvc.user.validation;
-
-import static java.lang.annotation.ElementType.*;
-import static java.lang.annotation.RetentionPolicy.*;
+package net.nyavro.spring.social.signinmvc.utils.validation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -9,19 +6,21 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
 @Target( { TYPE, ANNOTATION_TYPE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = PasswordsNotEmptyValidator.class)
+@Constraint(validatedBy = PasswordsNotEqualValidator.class)
 @Documented
-public @interface PasswordsNotEmpty {
+public @interface PasswordsNotEqual {
 
-    String message() default "PasswordsNotEmpty";
+    String message() default "PasswordsNotEqual";
 
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
-
-    String triggerFieldName() default "";
 
     String passwordFieldName() default "";
 

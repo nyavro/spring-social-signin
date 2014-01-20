@@ -1,4 +1,4 @@
-package net.nyavro.spring.social.signinmvc.user.validation;
+package net.nyavro.spring.social.signinmvc.utils.validation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
