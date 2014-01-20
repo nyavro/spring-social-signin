@@ -1,7 +1,7 @@
 package net.nyavro.spring.social.signinmvc.controller;
 
 import net.nyavro.spring.social.signinmvc.utils.SecurityUtil;
-import net.nyavro.spring.social.signinmvc.user.dto.RegistrationForm;
+import net.nyavro.spring.social.signinmvc.model.dto.RegistrationForm;
 import net.nyavro.spring.social.signinmvc.model.SocialMediaService;
 import net.nyavro.spring.social.signinmvc.model.User;
 import net.nyavro.spring.social.signinmvc.user.service.DuplicateEmailException;

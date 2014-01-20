@@ -1,4 +1,4 @@
-package net.nyavro.spring.social.signinmvc.security.dto;
+package net.nyavro.spring.social.signinmvc.model.dto;
 
 import net.nyavro.spring.social.signinmvc.model.Role;
 import net.nyavro.spring.social.signinmvc.model.SocialMediaService;
