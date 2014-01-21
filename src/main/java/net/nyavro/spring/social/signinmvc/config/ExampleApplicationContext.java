@@ -7,7 +7,7 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 
 @Configuration
 @ComponentScan(basePackages = {
-        "net.nyavro.spring.social.signinmvc.user.service"
+        "net.nyavro.spring.social.signinmvc.services"
 })
 @Import({WebAppContext.class, MongoConfig.class, PersistenceContext.class, SecurityContext.class, SocialContext.class})
 @PropertySource("classpath:application.properties")
