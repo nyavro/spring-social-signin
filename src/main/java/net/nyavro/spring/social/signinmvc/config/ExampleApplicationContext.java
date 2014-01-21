@@ -9,7 +9,7 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 @ComponentScan(basePackages = {
         "net.nyavro.spring.social.signinmvc.services"
 })
-@Import({WebAppContext.class, MongoConfig.class, PersistenceContext.class, SecurityContext.class, SocialContext.class})
+@Import({WebAppConfig.class, MongoConfig.class, PersistenceContext.class, SecurityConfig.class, SocialConfig.class})
 @PropertySource("classpath:application.properties")
 @EnableAspectJAutoProxy
 public class ExampleApplicationContext {
@@ -18,12 +18,10 @@ public class ExampleApplicationContext {
 
     @Bean
     public MessageSource messageSource() {
-        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-
-        messageSource.setBasename(MESSAGE_SOURCE_BASE_NAME);
-        messageSource.setUseCodeAsDefaultMessage(true);
-
-        return messageSource;
+        final ResourceBundleMessageSource source = new ResourceBundleMessageSource();
+        source.setBasename(MESSAGE_SOURCE_BASE_NAME);
+        source.setUseCodeAsDefaultMessage(true);
+        return source;
     }
 
     @Bean

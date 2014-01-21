@@ -20,7 +20,7 @@ import org.springframework.social.security.SpringSocialConfigurer;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityContext extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private ApplicationContext context;
@@ -36,33 +36,33 @@ public class SecurityContext extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
-                    .loginPage("/login")
-                    .loginProcessingUrl("/login/authenticate")
-                    .failureUrl("/login?error=bad_credentials")
-                //Configures the logout function
-                .and()
-                    .logout()
-                        .deleteCookies("JSESSIONID")
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login")
-                //Configures url based authorization
-                .and()
-                    .authorizeRequests()
-                        //Anyone can access the urls
-                        .antMatchers(
-                                "/auth/**",
-                                "/login",
-                                "/signin/**",
-                                "/signup/**",
-                                "/user/register/**"
-                        ).permitAll()
-                        //The rest of the our application is protected.
-                        .antMatchers("/**").hasRole("USER")
-                //Adds the SocialAuthenticationFilter to Spring Security's filter chain.
-                .and()
-                    .apply(new SpringSocialConfigurer())
-                .and()
-                    .setSharedObject(ApplicationContext.class, context);
+            .loginPage("/login")
+            .loginProcessingUrl("/login/authenticate")
+            .failureUrl("/login?error=bad_credentials")
+            //Configures the logout function
+            .and()
+                .logout()
+                    .deleteCookies("JSESSIONID")
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/login")
+            //Configures url based authorization
+            .and()
+                .authorizeRequests()
+                    //Anyone can access the urls
+                    .antMatchers(
+                            "/auth/**",
+                            "/login",
+                            "/signin/**",
+                            "/signup/**",
+                            "/user/register/**"
+                    ).permitAll()
+                    //The rest of the our application is protected.
+                    .antMatchers("/**").hasRole("USER")
+            //Adds the SocialAuthenticationFilter to Spring Security's filter chain.
+            .and()
+                .apply(new SpringSocialConfigurer())
+            .and()
+                .setSharedObject(ApplicationContext.class, context);
     }
 
     @Override

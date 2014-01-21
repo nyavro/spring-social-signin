@@ -1,6 +1,7 @@
 package net.nyavro.spring.social.signinmvc.config;
 
 import com.jolbox.bonecp.BoneCPDataSource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -18,62 +19,75 @@ import java.util.Properties;
 public class PersistenceContext {
 
     private static final String[] PROPERTY_PACKAGES_TO_SCAN = {
-            "net.nyavro.spring.social.signinmvc.common.model",
-            "net.nyavro.spring.social.signinmvc.user.model"
+        "net.nyavro.spring.social.signinmvc.model"
     };
-
-    protected static final String PROPERTY_NAME_DATABASE_DRIVER = "db.driver";
-    protected static final String PROPERTY_NAME_DATABASE_PASSWORD = "db.password";
-    protected static final String PROPERTY_NAME_DATABASE_URL = "db.url";
-    protected static final String PROPERTY_NAME_DATABASE_USERNAME = "db.username";
-
     private static final String PROPERTY_NAME_HIBERNATE_DIALECT = "hibernate.dialect";
     private static final String PROPERTY_NAME_HIBERNATE_FORMAT_SQL = "hibernate.format_sql";
     private static final String PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO = "hibernate.hbm2ddl.auto";
     private static final String PROPERTY_NAME_HIBERNATE_NAMING_STRATEGY = "hibernate.ejb.naming_strategy";
     private static final String PROPERTY_NAME_HIBERNATE_SHOW_SQL = "hibernate.show_sql";
 
-    @Resource
-    private Environment env;
+    @Value("${db.driver}")
+    private String driver;
+
+    @Value("${db.url}")
+    private String url;
+
+    @Value("${db.username}")
+    private String user;
+
+    @Value("${db.password}")
+    private String password;
+
+    @Value("${hibernate.dialect}")
+    private String dialect;
+
+    @Value("${hibernate.format_sql}")
+    private String format;
+
+    @Value("${hibernate.hbm2ddl.auto}")
+    private String autoHbm2ddl;
+
+    @Value("${hibernate.ejb.naming_strategy}")
+    private String naming;
+
+    @Value("${hibernate.ejb.naming_strategy}")
+    private String showSql;
 
     @Bean
     public DataSource dataSource() {
-        BoneCPDataSource dataSource = new BoneCPDataSource();
-
-        dataSource.setDriverClass(env.getRequiredProperty(PROPERTY_NAME_DATABASE_DRIVER));
-        dataSource.setJdbcUrl(env.getRequiredProperty(PROPERTY_NAME_DATABASE_URL));
-        dataSource.setUsername(env.getRequiredProperty(PROPERTY_NAME_DATABASE_USERNAME));
-        dataSource.setPassword(env.getRequiredProperty(PROPERTY_NAME_DATABASE_PASSWORD));
-
-        return dataSource;
+        final BoneCPDataSource source = new BoneCPDataSource();
+        source.setDriverClass(driver);
+        source.setJdbcUrl(url);
+        source.setUsername(user);
+        source.setPassword(password);
+        return source;
     }
 
     @Bean
     public JpaTransactionManager transactionManager() {
-        JpaTransactionManager transactionManager = new JpaTransactionManager();
-
-        transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
-
-        return transactionManager;
+        final JpaTransactionManager manager = new JpaTransactionManager();
+        manager.setEntityManagerFactory(entityManagerFactory().getObject());
+        return manager;
     }
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-        LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+        final LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
+        factory.setDataSource(dataSource());
+        factory.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+        factory.setPackagesToScan(PROPERTY_PACKAGES_TO_SCAN);
+        factory.setJpaProperties(properties());
+        return factory;
+    }
 
-        entityManagerFactoryBean.setDataSource(dataSource());
-        entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        entityManagerFactoryBean.setPackagesToScan(PROPERTY_PACKAGES_TO_SCAN);
-
-        Properties jpaProperties = new Properties();
-        jpaProperties.put(PROPERTY_NAME_HIBERNATE_DIALECT, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DIALECT));
-        jpaProperties.put(PROPERTY_NAME_HIBERNATE_FORMAT_SQL, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_FORMAT_SQL));
-        jpaProperties.put(PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO));
-        jpaProperties.put(PROPERTY_NAME_HIBERNATE_NAMING_STRATEGY, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_NAMING_STRATEGY));
-        jpaProperties.put(PROPERTY_NAME_HIBERNATE_SHOW_SQL, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_SHOW_SQL));
-
-        entityManagerFactoryBean.setJpaProperties(jpaProperties);
-
-        return entityManagerFactoryBean;
+    private Properties properties() {
+        final Properties properties = new Properties();
+        properties.put(PROPERTY_NAME_HIBERNATE_DIALECT, dialect);
+        properties.put(PROPERTY_NAME_HIBERNATE_FORMAT_SQL, format);
+        properties.put(PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO, autoHbm2ddl);
+        properties.put(PROPERTY_NAME_HIBERNATE_NAMING_STRATEGY, naming);
+        properties.put(PROPERTY_NAME_HIBERNATE_SHOW_SQL, showSql);
+        return properties;
     }
 }

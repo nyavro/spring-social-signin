@@ -96,40 +96,38 @@ public class RegistrationController {
     private User createUserAccount(RegistrationForm userAccountData, BindingResult result) {
         LOGGER.debug("Creating user account with information: {}", userAccountData);
         User registered = null;
-
         try {
             registered = service.registerNewUserAccount(userAccountData);
         }
         catch (DuplicateEmailException ex) {
             LOGGER.debug("An email address: {} exists.", userAccountData.getEmail());
             addFieldError(
-                    MODEL_NAME_REGISTRATION_DTO,
-                    RegistrationForm.FIELD_NAME_EMAIL,
-                    userAccountData.getEmail(),
-                    ERROR_CODE_EMAIL_EXIST,
-                    result);
+                MODEL_NAME_REGISTRATION_DTO,
+                RegistrationForm.FIELD_NAME_EMAIL,
+                userAccountData.getEmail(),
+                ERROR_CODE_EMAIL_EXIST,
+                result
+            );
         }
-
         return registered;
     }
 
     private void addFieldError(String objectName, String fieldName, String fieldValue,  String errorCode, BindingResult result) {
         LOGGER.debug(
-                "Adding field error object's: {} field: {} with error code: {}",
-                objectName,
-                fieldName,
-                errorCode
+            "Adding field error object's: {} field: {} with error code: {}",
+            objectName,
+            fieldName,
+            errorCode
         );
-        FieldError error = new FieldError(
-                objectName,
-                fieldName,
-                fieldValue,
-                false,
-                new String[]{errorCode},
-                new Object[]{},
-                errorCode
+        final FieldError error = new FieldError(
+            objectName,
+            fieldName,
+            fieldValue,
+            false,
+            new String[]{errorCode},
+            new Object[]{},
+            errorCode
         );
-
         result.addError(error);
         LOGGER.debug("Added field error: {} to binding result: {}", error, result);
     }

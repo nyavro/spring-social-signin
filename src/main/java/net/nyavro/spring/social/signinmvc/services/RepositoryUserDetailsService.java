@@ -24,19 +24,19 @@ public class RepositoryUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         LOGGER.debug("Loading user by username: {}", username);
-        User user = repository.findByEmail(username);
+        final User user = repository.findByEmail(username);
         LOGGER.debug("Found user: {}", user);
         if (user == null) {
             throw new UsernameNotFoundException("No user found with username: " + username);
         }
         return ExampleUserDetails.getBuilder()
-                .firstName(user.getFirstName())
-                .id(user.getId())
-                .lastName(user.getLastName())
-                .password(user.getPassword())
-                .role(user.getRole())
-                .socialSignInProvider(user.getSignInProvider())
-                .username(user.getEmail())
-                .build();
+            .firstName(user.getFirstName())
+            .id(user.getId())
+            .lastName(user.getLastName())
+            .password(user.getPassword())
+            .role(user.getRole())
+            .socialSignInProvider(user.getSignInProvider())
+            .username(user.getEmail())
+            .build();
     }
 }

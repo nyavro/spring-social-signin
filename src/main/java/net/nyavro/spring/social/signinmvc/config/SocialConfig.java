@@ -22,7 +22,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableSocial
 @Profile("application")
-public class SocialContext implements SocialConfigurer {
+public class SocialConfig implements SocialConfigurer {
 
     @Autowired
     private DataSource dataSource;
