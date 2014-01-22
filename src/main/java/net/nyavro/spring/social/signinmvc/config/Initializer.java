@@ -4,6 +4,7 @@ import org.sitemesh.config.ConfigurableSiteMeshFilter;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.context.support.XmlWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
@@ -11,7 +12,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 import javax.servlet.*;
 import java.util.EnumSet;
 
-public class ExampleApplicationConfig implements WebApplicationInitializer {
+public class Initializer implements WebApplicationInitializer {
     private static final String DISPATCHER_SERVLET_NAME = "dispatcher";
     private static final String DISPATCHER_SERVLET_MAPPING = "/";
 
@@ -19,11 +20,11 @@ public class ExampleApplicationConfig implements WebApplicationInitializer {
     public void onStartup(ServletContext servletContext) throws ServletException {
         //If you want to use the XML configuration, comment the following two lines out.
         AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
-        rootContext.register(ExampleApplicationContext.class);
+        rootContext.register(ApplicationContext.class);
 
-        //If you want to use the XML configuration, uncomment the following lines.
-        //XmlWebApplicationContext rootContext = new XmlWebApplicationContext();
-        //rootContext.setConfigLocation("classpath:exampleApplicationContext.xml");
+//        If you want to use the XML configuration, uncomment the following lines.
+//        XmlWebApplicationContext rootContext = new XmlWebApplicationContext();
+//        rootContext.setConfigLocation("classpath:exampleApplicationContext.xml");
 
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet(DISPATCHER_SERVLET_NAME, new DispatcherServlet(rootContext));
         dispatcher.setLoadOnStartup(1);

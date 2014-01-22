@@ -9,10 +9,10 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 @ComponentScan(basePackages = {
         "net.nyavro.spring.social.signinmvc.services"
 })
-@Import({WebAppConfig.class, MongoConfig.class, PersistenceContext.class, SecurityConfig.class, SocialConfig.class})
+@Import({WebAppConfig.class, MongoConfig.class, PersistenceConfig.class, SecurityConfig.class, SocialConfig.class})
 @PropertySource("classpath:application.properties")
 @EnableAspectJAutoProxy
-public class ExampleApplicationContext {
+public class ApplicationContext {
 
     private static final String MESSAGE_SOURCE_BASE_NAME = "i18n/messages";
 

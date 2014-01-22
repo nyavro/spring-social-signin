@@ -16,7 +16,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-public class PersistenceContext {
+public class PersistenceConfig {
 
     private static final String[] PROPERTY_PACKAGES_TO_SCAN = {
         "net.nyavro.spring.social.signinmvc.model"
