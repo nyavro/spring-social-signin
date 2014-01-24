@@ -34,33 +34,32 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public SimpleMappingExceptionResolver exceptionResolver() {
-        SimpleMappingExceptionResolver exceptionResolver = new SimpleMappingExceptionResolver();
-
-        Properties exceptionMappings = new Properties();
-
-        exceptionMappings.put("java.lang.Exception", "error/error");
-        exceptionMappings.put("java.lang.RuntimeException", "error/error");
-
-        exceptionResolver.setExceptionMappings(exceptionMappings);
-
-        Properties statusCodes = new Properties();
-
-        statusCodes.put("error/404", "404");
-        statusCodes.put("error/error", "500");
-
-        exceptionResolver.setStatusCodes(statusCodes);
-
+        final SimpleMappingExceptionResolver exceptionResolver = new SimpleMappingExceptionResolver();
+        exceptionResolver.setExceptionMappings(exceptionMappings());
+        exceptionResolver.setStatusCodes(statusCodes());
         return exceptionResolver;
+    }
+
+    private Properties exceptionMappings() {
+        final Properties mappings = new Properties();
+        mappings.put("java.lang.Exception", "error/error");
+        mappings.put("java.lang.RuntimeException", "error/error");
+        return mappings;
+    }
+
+    private Properties statusCodes() {
+        final Properties codes = new Properties();
+        codes.put("error/404", "404");
+        codes.put("error/error", "500");
+        return codes;
     }
 
     @Bean
     public ViewResolver viewResolver() {
-        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-
-        viewResolver.setViewClass(JstlView.class);
-        viewResolver.setPrefix(VIEW_RESOLVER_PREFIX);
-        viewResolver.setSuffix(VIEW_RESOLVER_SUFFIX);
-
-        return viewResolver;
+        final InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setViewClass(JstlView.class);
+        resolver.setPrefix(VIEW_RESOLVER_PREFIX);
+        resolver.setSuffix(VIEW_RESOLVER_SUFFIX);
+        return resolver;
     }
 }

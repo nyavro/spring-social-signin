@@ -1,6 +1,7 @@
 package net.nyavro.spring.social.signinmvc.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.encrypt.Encryptors;
@@ -27,11 +28,6 @@ public class SocialConfig implements SocialConfigurer {
     @Autowired
     private DataSource dataSource;
 
-    /**
-     * Configures the connection factories for Facebook and Twitter.
-     * @param cfConfig
-     * @param env
-     */
     @Override
     public void addConnectionFactories(ConnectionFactoryConfigurer cfConfig, Environment env) {
         cfConfig.addConnectionFactory(new TwitterConnectionFactory(
@@ -52,14 +48,14 @@ public class SocialConfig implements SocialConfigurer {
     @Override
     public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
         return new JdbcUsersConnectionRepository(
-                dataSource,
-                connectionFactoryLocator,
-                /**
-                 * The TextEncryptor object encrypts the authorization details of the connection. In
-                 * our example, the authorization details are stored as plain text.
-                 * DO NOT USE THIS IN PRODUCTION.
-                 */
-                Encryptors.noOpText()
+            dataSource,
+            connectionFactoryLocator,
+            /**
+             * The TextEncryptor object encrypts the authorization details of the connection. In
+             * our example, the authorization details are stored as plain text.
+             * DO NOT USE THIS IN PRODUCTION.
+             */
+            Encryptors.noOpText()
         );
     }
 
