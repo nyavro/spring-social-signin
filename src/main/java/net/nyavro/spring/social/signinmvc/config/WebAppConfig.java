@@ -1,16 +1,19 @@
 package net.nyavro.spring.social.signinmvc.config;
 
+import com.google.common.collect.ImmutableMap;
+import net.nyavro.spring.social.signinmvc.utils.JsonUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
+import org.springframework.web.servlet.view.UrlBasedViewResolver;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import java.util.Properties;
 
@@ -18,9 +21,6 @@ import java.util.Properties;
 @ComponentScan(basePackages = {"net.nyavro.spring.social.signinmvc.controller"})
 @EnableWebMvc
 public class WebAppConfig extends WebMvcConfigurerAdapter {
-
-    private static final String VIEW_RESOLVER_PREFIX = "/WEB-INF/jsp/";
-    private static final String VIEW_RESOLVER_SUFFIX = ".jsp";
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -56,10 +56,23 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public ViewResolver viewResolver() {
-        final InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setViewClass(JstlView.class);
-        resolver.setPrefix(VIEW_RESOLVER_PREFIX);
-        resolver.setSuffix(VIEW_RESOLVER_SUFFIX);
+        final UrlBasedViewResolver resolver = new UrlBasedViewResolver();
+        resolver.setViewClass(org.springframework.web.servlet.view.freemarker.FreeMarkerView.class);
+        resolver.setSuffix(".ftl");
+        resolver.setContentType("text/html;charset=UTF-8");
+        resolver.setOrder(Ordered.LOWEST_PRECEDENCE);
         return resolver;
+    }
+
+    @Bean
+    public FreeMarkerConfigurer configurer() {
+        final FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
+        configurer.setTemplateLoaderPath("/WEB-INF/freemarker/");
+        configurer.setDefaultEncoding("UTF-8");
+        final Properties properties = new Properties();
+        properties.put("cache_storage", "freemarker.cache.NullCacheStorage");
+        configurer.setFreemarkerSettings(properties);
+        configurer.setFreemarkerVariables(new ImmutableMap.Builder<String, Object>().put("utils", new JsonUtils()).build());
+        return configurer;
     }
 }
