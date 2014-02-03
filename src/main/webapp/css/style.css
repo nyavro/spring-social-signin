@@ -1,0 +1,35 @@
+.rightinfo {
+    padding: 10px 15px 10px;
+    line-height: 20px;
+    color: #777777;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #ffffff;
+}
+
+#category
+{
+    width: 60em;
+    padding-bottom: 15em;
+}
+#category > li
+{
+    float: left;
+    width: 20em;
+}
+
+.panel {
+    box-shadow: 3px 10px 10px 5px #888888;
+    border:1px solid;
+    border-radius:5px;
+}
+
+.panel-heading {
+    color: #ffffff;
+    background: #0088cc;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.panel-body {
+    margin: 10px;
+}

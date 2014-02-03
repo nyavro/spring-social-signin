@@ -36,7 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
-            .loginPage("/login")
+            .defaultSuccessUrl("/")
+//            .loginPage("/index")
             .loginProcessingUrl("/login/authenticate")
             .failureUrl("/login?error=bad_credentials")
             //Configures the logout function
@@ -49,18 +50,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
                 .authorizeRequests()
                     //Anyone can access the urls
-                    .antMatchers(
-                            "/auth/**",
-                            "/login",
-                            "/signin/**",
-                            "/signup/**",
-                            "/user/register/**",
-                            "/ajax/**",
-                            "/resource/**",
-                            "/img/**"
-                    ).permitAll()
+                    .antMatchers("/**").permitAll()
                     //The rest of the our application is protected.
-                    .antMatchers("/**").hasRole("USER")
+                    .antMatchers("/logout").hasRole("USER")
             //Adds the SocialAuthenticationFilter to Spring Security's filter chain.
             .and()
                 .apply(new SpringSocialConfigurer())

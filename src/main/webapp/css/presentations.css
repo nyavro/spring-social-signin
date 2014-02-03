@@ -1,0 +1,50 @@
+.presentation-list-item {
+    padding-top:10px;
+    min-height: 80px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom:30px;
+    margin-top:25px;
+    line-height: 16px;
+    padding-bottom: 35px;
+    padding-right: 105px;
+    background: url(/img/separator.png) no-repeat left bottom
+}
+
+a {
+    text-decoration: none;
+    color: #65b649;
+    text-align: justify;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.short-description {
+    color: #666666;
+    max-height: 32px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    padding-left: 56px;
+}
+
+.presentation-date {
+    padding-left: 56px;
+    font-size: 14px;
+    position: absolute;
+    bottom: 4px;
+    color: #aaaaaa;
+}
+
+.avatar {
+
+}
+
+.presentation-title {
+    font-family: 'HeliosCondLight', Arial, Helvetica, sans-serif;
+    line-height: 24px;
+    vertical-align: middle;
+}
+
+#left-banner {
+    width: 240px;
+}
