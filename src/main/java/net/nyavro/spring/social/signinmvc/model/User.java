@@ -1,167 +1,146 @@
 package net.nyavro.spring.social.signinmvc.model;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.joda.time.DateTime;
+import java.util.Date;
 
 public class User {
 
-    private org.joda.time.DateTime creationTime;
-
-    private org.joda.time.DateTime modificationTime;
-
-    private long version;
-
     private String id;
 
-    private String email;
-
-    private String firstName;
-
-    private String lastName;
+    private String login;
 
     private String password;
 
-    private Role role;
+    private String email;
 
-    private SocialMediaService signInProvider;
+    private boolean isPrivate;
 
-    public User() {
-    }
+    private String last;
 
-    public static Builder getBuilder() {
-        return new Builder();
-    }
+    private String first;
 
-    public String  getId() {
+    private String city;
+
+    private String company;
+
+    private String title;
+
+    private boolean isProvider;
+
+    private String phone;
+
+    private Date registered;
+
+    private Date lastSeen;
+
+    public String getId() {
         return id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public SocialMediaService getSignInProvider() {
-        return signInProvider;
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this)
-                .append("id", id)
-                .append("creationTime", this.getCreationTime())
-                .append("email", email)
-                .append("firstName", firstName)
-                .append("lastName", lastName)
-                .append("modificationTime", this.getModificationTime())
-                .append("signInProvider", this.getSignInProvider())
-                .append("version", this.getVersion())
-                .toString();
-    }
-
-    public static class Builder {
-
-        private User user;
-
-        public Builder() {
-            user = new User();
-            user.role = Role.ROLE_USER;
-        }
-
-        public Builder email(String email) {
-            user.email = email;
-            return this;
-        }
-
-        public Builder firstName(String firstName) {
-            user.firstName = firstName;
-            return this;
-        }
-
-        public Builder lastName(String lastName) {
-            user.lastName = lastName;
-            return this;
-        }
-
-        public Builder password(String password) {
-            user.password = password;
-            return this;
-        }
-
-        public Builder signInProvider(SocialMediaService signInProvider) {
-            user.signInProvider = signInProvider;
-            return this;
-        }
-
-        public User build() {
-            return user;
-        }
-    }
-
-    public DateTime getCreationTime() {
-        return creationTime;
-    }
-
-    public DateTime getModificationTime() {
-        return modificationTime;
-    }
-
-    public long getVersion() {
-        return version;
-    }
-
-    public void setCreationTime(DateTime creationTime) {
-        this.creationTime = creationTime;
-    }
-
-    public void setModificationTime(DateTime modificationTime) {
-        this.modificationTime = modificationTime;
-    }
-
-    public void setVersion(long version) {
-        this.version = version;
     }
 
     public void setId(String id) {
         this.id = id;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String getFirst() {
+        return first;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirst(String first) {
+        this.first = first;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public String getLast() {
+        return last;
+    }
+
+    public void setLast(String last) {
+        this.last = last;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public String getEmail() {
+        return email;
     }
 
-    public void setSignInProvider(SocialMediaService signInProvider) {
-        this.signInProvider = signInProvider;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public boolean isPrivate() {
+        return isPrivate;
+    }
+
+    public void setPrivate(boolean aPrivate) {
+        isPrivate = aPrivate;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public void setProvider(boolean provider) {
+        isProvider = provider;
+    }
+
+    public boolean isProvider() {
+        return isProvider;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Date getRegistered() {
+        return registered;
+    }
+
+    public void setRegistered(Date registered) {
+        this.registered = registered;
+    }
+
+    public Date getLastSeen() {
+        return lastSeen;
+    }
+
+    public void setLastSeen(Date lastSeen) {
+        this.lastSeen = lastSeen;
     }
 }

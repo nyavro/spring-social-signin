@@ -1,9 +1,12 @@
 package net.nyavro.spring.social.signinmvc.services;
 
+import net.nyavro.spring.social.signinmvc.model.Contact;
 import net.nyavro.spring.social.signinmvc.repository.UserRepository;
 import net.nyavro.spring.social.signinmvc.model.dto.RegistrationForm;
 import net.nyavro.spring.social.signinmvc.model.User;
 import net.nyavro.spring.social.signinmvc.services.DuplicateEmailException;
+import net.nyavro.spring.social.signinmvc.utils.Converter;
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,31 +24,25 @@ public class RepositoryUserService implements UserService {
     private UserRepository repository;
 
     @Autowired
+    private PasswordEncoder encoder;
+
+    @Autowired
     public RepositoryUserService(PasswordEncoder passwordEncoder, UserRepository repository) {
         this.passwordEncoder = passwordEncoder;
         this.repository = repository;
     }
 
-    @Transactional
     @Override
-    public User registerNewUserAccount(RegistrationForm userAccountData) throws DuplicateEmailException {
-        LOGGER.debug("Registering new user account with information: {}", userAccountData);
-        if (emailExist(userAccountData.getEmail())) {
-            LOGGER.debug("Email: {} exists. Throwing exception.", userAccountData.getEmail());
-            throw new DuplicateEmailException("The email address: " + userAccountData.getEmail() + " is already in use.");
-        }
-        LOGGER.debug("Email: {} does not exist. Continuing registration.", userAccountData.getEmail());
-        final User.Builder user = User.getBuilder()
-            .email(userAccountData.getEmail())
-            .firstName(userAccountData.getFirstName())
-            .lastName(userAccountData.getLastName())
-            .password(encodePassword(userAccountData));
-        if (userAccountData.isSocialSignIn()) {
-            user.signInProvider(userAccountData.getSignInProvider());
-        }
-        final User registered = user.build();
-        LOGGER.debug("Persisting new user with information: {}", registered);
-        return repository.save(registered);
+    @Transactional
+    public User create(User user) {
+        user.setPassword(encoder.encode(user.getPassword()));
+        return repository.save(user);
+    }
+
+    @Override
+    public Contact getContact(String creator) {
+        final User user = repository.findOne(new ObjectId(creator));
+        return new Converter().convert(user);
     }
 
     private boolean emailExist(String email) {

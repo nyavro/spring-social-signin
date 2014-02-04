@@ -61,7 +61,7 @@ public class RegistrationController {
     }
 
     @RequestMapping(value ="/user/register", method = RequestMethod.POST)
-    public String registerUserAccount(@Valid @ModelAttribute("user") RegistrationForm userAccountData,
+    public String registerUserAccount(@Valid @ModelAttribute("user") User userAccountData,
                                       BindingResult result,
                                       WebRequest request) throws DuplicateEmailException {
         LOGGER.debug("Registering user account with information: {}", userAccountData);
@@ -93,18 +93,18 @@ public class RegistrationController {
      * Creates a new user account by calling the service method. If the email address is found
      * from the database, this method adds a field error to the email field of the form object.
      */
-    private User createUserAccount(RegistrationForm userAccountData, BindingResult result) {
-        LOGGER.debug("Creating user account with information: {}", userAccountData);
+    private User createUserAccount(User user, BindingResult result) {
+        LOGGER.debug("Creating user account with information: {}", user);
         User registered = null;
         try {
-            registered = service.registerNewUserAccount(userAccountData);
+            registered = service.create(user);
         }
         catch (DuplicateEmailException ex) {
-            LOGGER.debug("An email address: {} exists.", userAccountData.getEmail());
+            LOGGER.debug("An email address: {} exists.", user.getEmail());
             addFieldError(
                 MODEL_NAME_REGISTRATION_DTO,
                 RegistrationForm.FIELD_NAME_EMAIL,
-                userAccountData.getEmail(),
+                user.getEmail(),
                 ERROR_CODE_EMAIL_EXIST,
                 result
             );
