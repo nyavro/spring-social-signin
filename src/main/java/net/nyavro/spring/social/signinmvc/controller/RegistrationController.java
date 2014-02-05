@@ -9,6 +9,8 @@ import net.nyavro.spring.social.signinmvc.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.UserProfile;
 import org.springframework.social.connect.web.ProviderSignInUtils;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,9 +26,15 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Controller
 @SessionAttributes("user")
+@RequestMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RegistrationController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RegistrationController.class);
@@ -34,29 +43,54 @@ public class RegistrationController {
     protected static final String MODEL_NAME_REGISTRATION_DTO = "user";
     protected static final String VIEW_NAME_REGISTRATION_PAGE = "user/registrationForm";
 
-    private UserService service;
+    @Value("${user.private.default}")
+    private boolean userPrivate;
 
     @Autowired
-    public RegistrationController(UserService service) {
-        this.service = service;
-    }
+    private UserService service;
 
+/*
     @RequestMapping(value = "/user/register", method = RequestMethod.GET)
     public String showRegistrationForm(WebRequest request, Model model) {
         LOGGER.debug("Rendering registration page.");
         model.addAttribute(MODEL_NAME_REGISTRATION_DTO, createRegistrationDTO(ProviderSignInUtils.getConnection(request)));
         return VIEW_NAME_REGISTRATION_PAGE;
+    }*/
+
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String createForm(Model model, WebRequest request) throws IOException {
+        final User user = createRegistrationDTO(ProviderSignInUtils.getConnection(request));
+        model.addAttribute("user", user);
+        return "/register";
     }
 
-    private RegistrationForm createRegistrationDTO(Connection<?> connection) {
-        final RegistrationForm dto = new RegistrationForm();
-        if (connection != null) {
-            final UserProfile socialMediaProfile = connection.fetchUserProfile();
-            dto.setEmail(socialMediaProfile.getEmail());
-            dto.setFirstName(socialMediaProfile.getFirstName());
-            dto.setLastName(socialMediaProfile.getLastName());
-            dto.setSignInProvider(SocialMediaService.valueOf(connection.getKey().getProviderId().toUpperCase()));
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String create(@Valid User user, BindingResult result, Model model)
+            throws Exception {
+        if (!result.hasErrors()) {
+            user.setRegistered(new Date());
+            service.create(user);
+        } else {
+            List<String> errors = new ArrayList<String>();
+            for (ObjectError objError : result.getAllErrors()) {
+                errors.add(objError.getDefaultMessage());
+            }
+            model.addAttribute("errors", errors);
         }
+        return "/index";
+    }
+
+    private User createRegistrationDTO(Connection<?> connection) {
+        final User dto = new User();
+        if (connection != null) {
+            final UserProfile profile = connection.fetchUserProfile();
+            dto.setEmail(profile.getEmail());
+            dto.setFirst(profile.getFirstName());
+            dto.setLast(profile.getLastName());
+            dto.setSignInProvider(SocialMediaService.valueOf(connection.getKey().getProviderId().toUpperCase()));
+            dto.setLogin(profile.getUsername());
+        }
+        dto.setPrivate(userPrivate);
         return dto;
     }
 

@@ -32,6 +32,8 @@ public class User {
 
     private Date lastSeen;
 
+    private SocialMediaService signInProvider;
+
     public String getId() {
         return id;
     }
@@ -142,5 +144,13 @@ public class User {
 
     public void setLastSeen(Date lastSeen) {
         this.lastSeen = lastSeen;
+    }
+
+    public void setSignInProvider(SocialMediaService signInProvider) {
+        this.signInProvider = signInProvider;
+    }
+
+    public SocialMediaService getSignInProvider() {
+        return signInProvider;
     }
 }
