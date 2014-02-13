@@ -17,6 +17,7 @@ import org.springframework.social.connect.web.ConnectController;
 import org.springframework.social.facebook.connect.FacebookConnectionFactory;
 import org.springframework.social.security.AuthenticationNameUserIdSource;
 import org.springframework.social.twitter.connect.TwitterConnectionFactory;
+import org.springframework.social.vkontakte.connect.VKontakteConnectionFactory;
 
 import javax.sql.DataSource;
 
@@ -37,6 +38,10 @@ public class SocialConfig implements SocialConfigurer {
         cfConfig.addConnectionFactory(new FacebookConnectionFactory(
                 env.getProperty("facebook.app.id"),
                 env.getProperty("facebook.app.secret")
+        ));
+        cfConfig.addConnectionFactory(new VKontakteConnectionFactory(
+                env.getProperty("vk.app.id"),
+                env.getProperty("vk.app.secret")
         ));
     }
 

@@ -17,7 +17,13 @@
         </form>
         <div class="row social-button-row">
             <div class="col-lg-4">
-                <a href="/auth/facebook"><button class="btn btn-facebook"><i class="icon-facebook"></i> | facebook login</button></a>
+                <a href="/auth/facebook"><button class="btn btn-facebook"><i class="icon-facebook"></i> facebook login</button></a>
+            </div>
+        </div>
+
+        <div class="row social-button-row">
+            <div class="col-lg-4">
+                <a href="/auth/vk"><button class="btn btn-facebook"><i class="icon-vk"></i> vk login</button></a>
             </div>
         </div>
     </div>

@@ -48,6 +48,7 @@
         <skip.unit.tests>false</skip.unit.tests>
         <freemarker.version>2.3.19</freemarker.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring-social-vkontakte.version>1.1.1.RELEASE</spring-social-vkontakte.version>
     </properties>
     <profiles>
         <profile>
@@ -389,6 +390,13 @@
             <artifactId>spring-social-twitter</artifactId>
             <version>${spring.social.twitter.version}</version>
         </dependency>
+        <!-- Spring Social VK -->
+        <dependency>
+            <groupId>com.github.weekens</groupId>
+            <artifactId>spring-social-vkontakte</artifactId>
+            <version>${spring-social-vkontakte.version}</version>
+        </dependency>
+
         <!-- CGLIB -->
         <dependency>
             <groupId>cglib</groupId>
