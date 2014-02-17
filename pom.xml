@@ -418,13 +418,6 @@
             <version>4.2.0.Final</version>
         </dependency>
 
-        <!-- Sitemesh -->
-        <dependency>
-            <groupId>org.sitemesh</groupId>
-            <artifactId>sitemesh</artifactId>
-            <version>3.0-alpha-2</version>
-        </dependency>
-
         <!-- Servlet API 3.0 -->
         <dependency>
             <groupId>org.glassfish</groupId>
