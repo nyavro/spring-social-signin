@@ -23,7 +23,7 @@
 
         <div class="row social-button-row">
             <div class="col-lg-4">
-                <a href="/auth/vk"><button class="btn btn-facebook"><i class="icon-vk"></i> vk login</button></a>
+                <a href="/auth/vkontakte"><button class="btn btn-facebook"><i class="icon-vk"></i> vk login</button></a>
             </div>
         </div>
     </div>
