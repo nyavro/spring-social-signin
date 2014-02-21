@@ -65,13 +65,13 @@ public class RegistrationController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String create(@Valid User user, BindingResult result, Model model)
+    public String create(final @Valid User user, final BindingResult result, final Model model)
             throws Exception {
         if (!result.hasErrors()) {
             user.setRegistered(new Date());
             service.create(user);
         } else {
-            List<String> errors = new ArrayList<String>();
+            final List<String> errors = new ArrayList<String>();
             for (ObjectError objError : result.getAllErrors()) {
                 errors.add(objError.getDefaultMessage());
             }
@@ -80,14 +80,14 @@ public class RegistrationController {
         return "/index";
     }
 
-    private User createRegistrationDTO(Connection<?> connection) {
+    private User createRegistrationDTO(final Connection<?> connection) {
         final User dto = new User();
         if (connection != null) {
             final UserProfile profile = connection.fetchUserProfile();
             dto.setEmail(profile.getEmail());
             dto.setFirst(profile.getFirstName());
             dto.setLast(profile.getLastName());
-            dto.setSignInProvider(SocialMediaService.valueOf(connection.getKey().getProviderId().toUpperCase()));
+//            dto.setSignInProvider(SocialMediaService.valueOf(connection.getKey().getProviderId().toUpperCase()));
             dto.setLogin(profile.getUsername());
         }
         dto.setPrivate(userPrivate);
@@ -95,9 +95,9 @@ public class RegistrationController {
     }
 
     @RequestMapping(value ="/user/register", method = RequestMethod.POST)
-    public String registerUserAccount(@Valid @ModelAttribute("user") User userAccountData,
-                                      BindingResult result,
-                                      WebRequest request) throws DuplicateEmailException {
+    public String registerUserAccount(final @Valid @ModelAttribute("user") User userAccountData,
+                                      final BindingResult result,
+                                      final WebRequest request) throws DuplicateEmailException {
         LOGGER.debug("Registering user account with information: {}", userAccountData);
         if (result.hasErrors()) {
             LOGGER.debug("Validation errors found. Rendering form view.");

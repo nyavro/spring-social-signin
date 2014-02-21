@@ -1,6 +1,7 @@
 package net.nyavro.spring.social.signinmvc.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class User {
 
@@ -32,7 +33,7 @@ public class User {
 
     private Date lastSeen;
 
-    private SocialMediaService signInProvider;
+    private List<ProviderIdMapping> providerIdMappings;
 
     public String getId() {
         return id;
@@ -146,11 +147,11 @@ public class User {
         this.lastSeen = lastSeen;
     }
 
-    public void setSignInProvider(SocialMediaService signInProvider) {
-        this.signInProvider = signInProvider;
+    public List<ProviderIdMapping> getProviderIdMappings() {
+        return providerIdMappings;
     }
 
-    public SocialMediaService getSignInProvider() {
-        return signInProvider;
+    public void setProviderIdMappings(List<ProviderIdMapping> providerIdMappings) {
+        this.providerIdMappings = providerIdMappings;
     }
 }
