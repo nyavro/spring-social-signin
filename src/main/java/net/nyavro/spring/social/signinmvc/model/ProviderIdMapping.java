@@ -9,12 +9,9 @@ public class ProviderIdMapping {
 
     private String id;
 
-    public ProviderIdMapping() {
-    }
-
     public ProviderIdMapping(String socialId, SocialMediaService service) {
         this.id = socialId;
-        this.provider = provider;
+        this.provider = service;
     }
 
     public SocialMediaService getProvider() {
@@ -31,5 +28,22 @@ public class ProviderIdMapping {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final ProviderIdMapping that = (ProviderIdMapping) o;
+        return id.equals(that.id) && provider == that.provider;
+    }
+
+    @Override
+    public int hashCode() {
+        return 31 * provider.hashCode() + id.hashCode();
     }
 }

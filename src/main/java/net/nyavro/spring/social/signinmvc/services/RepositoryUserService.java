@@ -3,9 +3,7 @@ package net.nyavro.spring.social.signinmvc.services;
 import net.nyavro.spring.social.signinmvc.model.Contact;
 import net.nyavro.spring.social.signinmvc.model.ProviderIdMapping;
 import net.nyavro.spring.social.signinmvc.repository.UserRepository;
-import net.nyavro.spring.social.signinmvc.model.dto.RegistrationForm;
 import net.nyavro.spring.social.signinmvc.model.User;
-import net.nyavro.spring.social.signinmvc.services.DuplicateEmailException;
 import net.nyavro.spring.social.signinmvc.utils.Converter;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
@@ -21,25 +19,25 @@ public class RepositoryUserService implements UserService {
     private static final Logger LOGGER = LoggerFactory.getLogger(RepositoryUserService.class);
 
     @Autowired
-    private UserRepository repository;
+    private UserRepository userRepository;
 
     @Autowired
-    private PasswordEncoder encoder;
+    private PasswordEncoder passwordEncoder;
 
     @Override
     @Transactional
     public User create(User user) {
-        user.setPassword(encoder.encode(user.getPassword()));
-        return repository.save(user);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
     }
 
     @Override
     public Contact getContact(String creator) {
-        return new Converter().convert(repository.findOne(new ObjectId(creator)));
+        return new Converter().convert(userRepository.findOne(new ObjectId(creator)));
     }
 
     @Override
     public User findByProviderIdMappings(final ProviderIdMapping mapping) {
-        return repository.findByProviderIdMappings(mapping);
+        return userRepository.findByProviderIdMappings(mapping);
     }
 }

@@ -1,11 +1,12 @@
 package net.nyavro.spring.social.signinmvc.controller;
 
-import net.nyavro.spring.social.signinmvc.utils.SecurityUtil;
-import net.nyavro.spring.social.signinmvc.model.dto.RegistrationForm;
 import net.nyavro.spring.social.signinmvc.model.SocialMediaService;
 import net.nyavro.spring.social.signinmvc.model.User;
+import net.nyavro.spring.social.signinmvc.model.dto.Auth;
+import net.nyavro.spring.social.signinmvc.model.dto.RegistrationForm;
 import net.nyavro.spring.social.signinmvc.services.DuplicateEmailException;
 import net.nyavro.spring.social.signinmvc.services.UserService;
+import net.nyavro.spring.social.signinmvc.utils.SecurityUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,6 @@ import org.springframework.web.context.request.WebRequest;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -59,7 +59,7 @@ public class RegistrationController {
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String createForm(Model model, WebRequest request) throws IOException {
-        final User user = createRegistrationDTO(ProviderSignInUtils.getConnection(request));
+        final Auth user = convert(ProviderSignInUtils.getConnection(request));
         model.addAttribute("user", user);
         return "/register";
     }
@@ -71,7 +71,7 @@ public class RegistrationController {
             user.setRegistered(new Date());
             service.create(user);
         } else {
-            final List<String> errors = new ArrayList<String>();
+            final List<String> errors = new ArrayList<>();
             for (ObjectError objError : result.getAllErrors()) {
                 errors.add(objError.getDefaultMessage());
             }
@@ -80,14 +80,14 @@ public class RegistrationController {
         return "/index";
     }
 
-    private User createRegistrationDTO(final Connection<?> connection) {
-        final User dto = new User();
+    private Auth convert(final Connection<?> connection) {
+        final Auth dto = new Auth();
         if (connection != null) {
             final UserProfile profile = connection.fetchUserProfile();
             dto.setEmail(profile.getEmail());
             dto.setFirst(profile.getFirstName());
             dto.setLast(profile.getLastName());
-//            dto.setSignInProvider(SocialMediaService.valueOf(connection.getKey().getProviderId().toUpperCase()));
+            dto.setSignInProvider(SocialMediaService.valueOf(connection.getKey().getProviderId().toUpperCase()));
             dto.setLogin(profile.getUsername());
         }
         dto.setPrivate(userPrivate);

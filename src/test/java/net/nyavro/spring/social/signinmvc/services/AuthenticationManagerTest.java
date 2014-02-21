@@ -5,6 +5,7 @@ import net.nyavro.spring.social.signinmvc.config.ApplicationTestContext;
 import net.nyavro.spring.social.signinmvc.model.ProviderIdMapping;
 import net.nyavro.spring.social.signinmvc.model.SocialMediaService;
 import net.nyavro.spring.social.signinmvc.model.User;
+import net.nyavro.spring.social.signinmvc.model.dto.Auth;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Before;
@@ -28,7 +29,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 public class AuthenticationManagerTest {
 
     @Mock
-    private RepositoryUserService repositoryUserService;
+    private UserService userService;
 
     @Autowired
     @InjectMocks
@@ -47,22 +48,30 @@ public class AuthenticationManagerTest {
     @Test
     public void grantsIfUserFoundByProviderId() {
         final User user = new User();
-        final ProviderIdMapping mapping = new ProviderIdMapping("social_123", SocialMediaService.VKONTAKTE);
+        final String socialId = "social_123";
+        final ProviderIdMapping mapping = new ProviderIdMapping(socialId, SocialMediaService.VKONTAKTE);
         user.setProviderIdMappings(
             new ImmutableList.Builder<ProviderIdMapping>().add(mapping).build()
         );
-        Mockito.when(repositoryUserService.findByProviderIdMappings(mapping)).thenReturn(user);
-        MatcherAssert.assertThat(authenticationManager.authenticate(user), Matchers.equalTo(AuthResult.GRANTED));
+        Mockito.when(userService.findByProviderIdMappings(mapping)).thenReturn(user);
+        final Auth auth = new Auth();
+        auth.setId(socialId);
+        auth.setSignInProvider(SocialMediaService.VKONTAKTE);
+        MatcherAssert.assertThat(authenticationManager.authenticate(auth), Matchers.equalTo(AuthResult.GRANTED));
     }
 
     @Test
     public void redirectsIfUserNotFoundByProviderId() {
         final User user = new User();
+        final String socialId = "social_234";
         user.setProviderIdMappings(
             new ImmutableList.Builder<ProviderIdMapping>()
-                .add(new ProviderIdMapping("social_123", SocialMediaService.VKONTAKTE))
+                .add(new ProviderIdMapping(socialId, SocialMediaService.VKONTAKTE))
                 .build()
         );
-        MatcherAssert.assertThat(authenticationManager.authenticate(user), Matchers.equalTo(AuthResult.REGISTER));
+        final Auth auth = new Auth();
+        auth.setId(socialId);
+        auth.setSignInProvider(SocialMediaService.VKONTAKTE);
+        MatcherAssert.assertThat(authenticationManager.authenticate(auth), Matchers.equalTo(AuthResult.REGISTER));
     }
 }
