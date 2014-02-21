@@ -1,6 +1,7 @@
 package net.nyavro.spring.social.signinmvc.services;
 
 import net.nyavro.spring.social.signinmvc.model.Contact;
+import net.nyavro.spring.social.signinmvc.model.ProviderIdMapping;
 import net.nyavro.spring.social.signinmvc.repository.UserRepository;
 import net.nyavro.spring.social.signinmvc.model.dto.RegistrationForm;
 import net.nyavro.spring.social.signinmvc.model.User;
@@ -19,18 +20,11 @@ public class RepositoryUserService implements UserService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RepositoryUserService.class);
 
-    private PasswordEncoder passwordEncoder;
-
+    @Autowired
     private UserRepository repository;
 
     @Autowired
     private PasswordEncoder encoder;
-
-    @Autowired
-    public RepositoryUserService(PasswordEncoder passwordEncoder, UserRepository repository) {
-        this.passwordEncoder = passwordEncoder;
-        this.repository = repository;
-    }
 
     @Override
     @Transactional
@@ -41,27 +35,11 @@ public class RepositoryUserService implements UserService {
 
     @Override
     public Contact getContact(String creator) {
-        final User user = repository.findOne(new ObjectId(creator));
-        return new Converter().convert(user);
+        return new Converter().convert(repository.findOne(new ObjectId(creator)));
     }
 
-    private boolean emailExist(String email) {
-        LOGGER.debug("Checking if email {} is already found from the database.", email);
-        final User user = repository.findByEmail(email);
-        if (user != null) {
-            LOGGER.debug("User account: {} found with email: {}. Returning true.", user, email);
-            return true;
-        }
-        LOGGER.debug("No user account found with email: {}. Returning false.", email);
-        return false;
-    }
-
-    private String encodePassword(RegistrationForm dto) {
-        String encodedPassword = null;
-        if (dto.isNormalRegistration()) {
-            LOGGER.debug("Registration is normal registration. Encoding password.");
-            encodedPassword = passwordEncoder.encode(dto.getPassword());
-        }
-        return encodedPassword;
+    @Override
+    public User findByProviderIdMappings(final ProviderIdMapping mapping) {
+        return repository.findByProviderIdMappings(mapping);
     }
 }
