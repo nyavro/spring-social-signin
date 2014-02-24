@@ -9,6 +9,9 @@ public class ProviderIdMapping {
 
     private String id;
 
+    public ProviderIdMapping() {
+    }
+
     public ProviderIdMapping(String socialId, SocialMediaService service) {
         this.id = socialId;
         this.provider = service;
