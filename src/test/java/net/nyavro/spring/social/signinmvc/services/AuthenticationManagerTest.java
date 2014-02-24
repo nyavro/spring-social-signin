@@ -61,7 +61,7 @@ public class AuthenticationManagerTest {
     }
 
     @Test
-    public void redirectsIfUserNotFoundByProviderId() {
+    public void requestsRegistrationIfUserNotFoundByProviderId() {
         final User user = new User();
         final String socialId = "social_234";
         user.setProviderIdMappings(
