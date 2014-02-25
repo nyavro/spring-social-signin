@@ -4,6 +4,7 @@ import net.nyavro.spring.social.signinmvc.model.SocialMediaService;
 import net.nyavro.spring.social.signinmvc.model.User;
 import net.nyavro.spring.social.signinmvc.model.dto.Auth;
 import net.nyavro.spring.social.signinmvc.model.dto.RegistrationForm;
+import net.nyavro.spring.social.signinmvc.services.AuthenticationManager;
 import net.nyavro.spring.social.signinmvc.services.DuplicateEmailException;
 import net.nyavro.spring.social.signinmvc.services.UserService;
 import net.nyavro.spring.social.signinmvc.utils.SecurityUtil;
@@ -49,6 +50,9 @@ public class RegistrationController {
     @Autowired
     private UserService service;
 
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
 /*
     @RequestMapping(value = "/user/register", method = RequestMethod.GET)
     public String showRegistrationForm(WebRequest request, Model model) {
@@ -60,6 +64,9 @@ public class RegistrationController {
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String createForm(Model model, WebRequest request) throws IOException {
         final Auth user = convert(ProviderSignInUtils.getConnection(request));
+        if(user.getEmail()==null) {
+            authenticationManager.authenticate(user);
+        }
         model.addAttribute("user", user);
         return "/register";
     }

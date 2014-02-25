@@ -13,15 +13,15 @@ import java.util.Set;
 
 public class CustomUserDetails extends SocialUser {
 
-    private final String id;
+    private String id;
 
-    private final String firstName;
+    private String firstName;
 
-    private final String lastName;
+    private String lastName;
 
-    private final SocialMediaService socialSignInProvider;
+    private SocialMediaService socialSignInProvider;
 
-    private CustomUserDetails(String username, String password, Collection<? extends GrantedAuthority> authorities, String id, String first, String last, SocialMediaService provider) {
+    public CustomUserDetails(String username, String password, Collection<? extends GrantedAuthority> authorities, String id, String first, String last, SocialMediaService provider) {
         super(username, password, authorities);
         this.id = id;
         this.firstName = first;
@@ -29,8 +29,21 @@ public class CustomUserDetails extends SocialUser {
         this.socialSignInProvider = provider;
     }
 
+    public CustomUserDetails(String name, String credential, Collection<? extends GrantedAuthority> authorities) {
+        super(name, credential, authorities);
+    }
+
     public static Builder getBuilder() {
         return new Builder();
+    }
+
+    public boolean isAuthorized() {
+        for(GrantedAuthority authority : getAuthorities()) {
+            if(authority.getAuthority().equals("ROLE_USER") || authority.getAuthority().equals("ROLE_PROVIDER")) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public String getId() {
