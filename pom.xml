@@ -401,6 +401,12 @@
         <dependency>
             <groupId>org.springframework.social</groupId>
             <artifactId>spring-social-vkontakte</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet.api</artifactId>
+                </exclusion>
+            </exclusions>
             <version>${spring-social-vkontakte.version}</version>
         </dependency>
 
