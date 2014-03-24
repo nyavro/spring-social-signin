@@ -70,7 +70,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
         configurer.setTemplateLoaderPath("/WEB-INF/freemarker/");
         configurer.setDefaultEncoding("UTF-8");
         final Properties properties = new Properties();
-        properties.put("cache_storage", "freemarker.cache.NullCacheStorage");
+//        properties.put("cache_storage", "freemarker.cache.NullCacheStorage");
         configurer.setFreemarkerSettings(properties);
         configurer.setFreemarkerVariables(new ImmutableMap.Builder<String, Object>().put("utils", new JsonUtils()).build());
         return configurer;
