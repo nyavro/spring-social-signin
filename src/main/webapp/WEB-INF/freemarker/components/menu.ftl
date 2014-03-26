@@ -27,7 +27,7 @@
                 <span class="rightinfo pull-right">
                     <div class='nav-collapse'>
                         <#if principal?? && principal.isAuthorized()>
-                            <form name="logoutForm" class="form-inline" style="margin:0; display: inline;" action='<@spring.url"/j_spring_security_logout"/>' method="POST">
+                            <form name="logoutForm" class="form-inline" style="margin:0; display: inline;" action='<@spring.url"/logout"/>' method="POST">
                                 <a href="" onclick="document.forms['logoutForm'].submit();">Выйти</a>
                             </form>
                         <#else>

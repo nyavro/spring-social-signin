@@ -38,15 +38,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
             .formLogin()
             .defaultSuccessUrl("/")
-//            .loginPage("/index")
-            .loginProcessingUrl("/login/authenticate")
+            .loginPage("/index")
+            .loginProcessingUrl("/login")
             .failureUrl("/login?error=bad_credentials")
             //Configures the logout function
             .and()
                 .logout()
                     .deleteCookies("JSESSIONID")
                     .logoutUrl("/logout")
-                    .logoutSuccessUrl("/login")
+                    .logoutSuccessUrl("/")
             //Configures url based authorization
             .and()
                 .authorizeRequests()

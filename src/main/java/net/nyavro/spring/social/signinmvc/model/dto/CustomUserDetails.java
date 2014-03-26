@@ -94,6 +94,7 @@ public class CustomUserDetails extends SocialUser {
         }
 
         public Builder user(User user) {
+            this.username = user.getLogin();
             this.firstName = user.getFirst();
             this.lastName = user.getLast();
             this.id = user.getId();

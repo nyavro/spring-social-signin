@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.security.Principal;
 
 @Controller
-@RequestMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MainController extends CommonController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)

@@ -6,9 +6,9 @@
         <h3>Вход</h3>
     </div>
     <div class="modal-body padding20px form">
-        <form name="loginForm" action="j_spring_security_check" method="POST" id="form" class="kissmetrics-login">
-            <input type="text"  name="j_username" value="" placeholder="Логин" autofocus/><br>
-            <input type="password" name="j_password" value="" placeholder="Пароль"/>
+        <form name="loginForm" action="/login" method="POST" id="form" class="kissmetrics-login">
+            <input type="text"  name="username" value="" placeholder="Логин" autofocus/><br>
+            <input type="password" name="password" value="" placeholder="Пароль"/>
             <div class="cf">
                 <div class="left">
                     <input type="submit" class="btn btn-success btn-large" value="Войти">

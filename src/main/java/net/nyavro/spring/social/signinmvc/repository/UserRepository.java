@@ -7,7 +7,9 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface UserRepository extends PagingAndSortingRepository<User, ObjectId> {
 
-    public User findByEmail(String email);
+    User findByEmail(String email);
 
-    public User findByProviderIdMappings(ProviderIdMapping mapping);
+    User findByProviderIdMappings(ProviderIdMapping mapping);
+
+    User findByLogin(String login);
 }
