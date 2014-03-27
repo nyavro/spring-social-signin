@@ -1,5 +1,7 @@
 package net.nyavro.spring.social.signinmvc.services;
 
+import org.junit.Test;
+
 /**
  * Created by eny on 3/27/14.
  */
@@ -28,4 +30,9 @@ public class LoginWorkflowTest {
 
 
          */
+    @Test
+    public void logsInLocally() {
+        final AuthWorkflow workflow = new AuthWorkflowImpl();
+        workflow.localLogIn("user", "password");
+    }
 }
