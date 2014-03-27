@@ -10,7 +10,6 @@ public class CommonController {
     @ModelAttribute("principal")
     public CustomUserDetails user() {
         final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
         return new CustomUserDetails(auth.getName(), auth.getCredentials()==null ? "" : auth.getCredentials().toString(), auth.getAuthorities());
     }
 }

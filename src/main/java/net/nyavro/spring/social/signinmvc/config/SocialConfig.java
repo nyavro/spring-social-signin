@@ -10,10 +10,13 @@ import org.springframework.social.UserIdSource;
 import org.springframework.social.config.annotation.ConnectionFactoryConfigurer;
 import org.springframework.social.config.annotation.EnableSocial;
 import org.springframework.social.config.annotation.SocialConfigurer;
+import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.ConnectionRepository;
+import org.springframework.social.connect.ConnectionSignUp;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
+import org.springframework.social.connect.mem.InMemoryUsersConnectionRepository;
 import org.springframework.social.connect.web.ConnectController;
 import org.springframework.social.facebook.connect.FacebookConnectionFactory;
 import org.springframework.social.security.AuthenticationNameUserIdSource;
@@ -53,16 +56,26 @@ public class SocialConfig implements SocialConfigurer {
 
     @Override
     public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
-        return new JdbcUsersConnectionRepository(
-            dataSource,
-            connectionFactoryLocator,
-            /**
-             * The TextEncryptor object encrypts the authorization details of the connection. In
-             * our example, the authorization details are stored as plain text.
-             * DO NOT USE THIS IN PRODUCTION.
-             */
-            Encryptors.noOpText()
-        );
+        final InMemoryUsersConnectionRepository repository = new InMemoryUsersConnectionRepository(connectionFactoryLocator);
+        ConnectionSignUp signUp = new ConnectionSignUp() {
+            @Override
+            public String execute(Connection<?> connection) {
+                return connection.fetchUserProfile().getEmail();
+            }
+        };
+        repository.setConnectionSignUp(signUp);
+        return repository;
+//                new JdbcUsersConnectionRepository(
+//            dataSource,
+//            connectionFactoryLocator,
+//            /**
+//             * The TextEncryptor object encrypts the authorization details of the connection. In
+//             * our example, the authorization details are stored as plain text.
+//             * DO NOT USE THIS IN PRODUCTION.
+//             */
+//            Encryptors.noOpText()
+//        );
+
     }
 
     @Bean
