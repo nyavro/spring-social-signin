@@ -14,4 +14,8 @@ public class UserStorageImpl implements UserStorage {
     public User findByExternalId(String id) {
         return null;
     }
+
+    @Override
+    public void save(User user) {
+    }
 }

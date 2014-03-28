@@ -1,5 +1,8 @@
 package net.nyavro.spring.social.signinmvc.model;
 
+import org.hibernate.validator.constraints.Email;
+
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
@@ -11,6 +14,8 @@ public class User {
 
     private String password;
 
+    @NotNull
+    @Email
     private String email;
 
     private boolean isPrivate;

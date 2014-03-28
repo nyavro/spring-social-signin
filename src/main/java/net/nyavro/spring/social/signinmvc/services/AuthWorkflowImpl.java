@@ -31,8 +31,8 @@ public class AuthWorkflowImpl implements AuthWorkflow {
 
     @Override
     public AuthResult externalLogIn(String providerName) {
-        final Auth auth = provider.authenticate(providerName);
-        final User user = storage.findByExternalId(auth.getId());
-        return AuthResult.GRANTED;
+        return storage.findByExternalId(provider.authenticate(providerName).getId()) != null ?
+            AuthResult.GRANTED :
+            AuthResult.REGISTER;
     }
 }

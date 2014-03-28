@@ -9,4 +9,6 @@ public interface UserStorage {
     User findLocalById(String id);
 
     User findByExternalId(String id);
+
+    void save(User user);
 }

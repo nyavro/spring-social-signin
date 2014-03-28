@@ -2,6 +2,7 @@ package net.nyavro.spring.social.signinmvc.services;
 
 import net.nyavro.spring.social.signinmvc.config.ApplicationTestContext;
 import net.nyavro.spring.social.signinmvc.model.User;
+import net.nyavro.spring.social.signinmvc.model.dto.Auth;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Before;
@@ -44,6 +45,9 @@ public class LoginWorkflowTest {
 
     @Mock
     private AuthChecker checker;
+
+    @Mock
+    private ExternalProvider provider;
 
     @Autowired
     @InjectMocks
@@ -91,11 +95,20 @@ public class LoginWorkflowTest {
 //
     @Test
     public void logsInExternallyMatchesLocalUser() {
-        MatcherAssert.assertThat(workflow.externalLogIn("facekontakt"), Matchers.equalTo(AuthResult.GRANTED));
+        final String service = "facekontakt";
+        final Auth auth = new Auth();
+        auth.setId("id123");
+        Mockito.when(provider.authenticate(service)).thenReturn(auth);
+        Mockito.when(storage.findByExternalId(auth.getId())).thenReturn(new User());
+        MatcherAssert.assertThat(workflow.externalLogIn(service), Matchers.equalTo(AuthResult.GRANTED));
     }
 
     @Test
     public void logsInExternallyDoesNotMatchLocalUser() {
-        MatcherAssert.assertThat(workflow.externalLogIn("kontwitter"), Matchers.equalTo(AuthResult.REGISTER));
+        final String service = "kontwitter";
+        final Auth auth = new Auth();
+        auth.setId("id456");
+        Mockito.when(provider.authenticate(service)).thenReturn(auth);
+        MatcherAssert.assertThat(workflow.externalLogIn(service), Matchers.equalTo(AuthResult.REGISTER));
     }
 }
