@@ -403,8 +403,8 @@
             <artifactId>spring-social-vkontakte</artifactId>
             <exclusions>
                 <exclusion>
+                    <artifactId>servlet-api</artifactId>
                     <groupId>javax.servlet</groupId>
-                    <artifactId>servlet.api</artifactId>
                 </exclusion>
             </exclusions>
             <version>${spring-social-vkontakte.version}</version>
