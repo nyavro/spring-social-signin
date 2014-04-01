@@ -1,4 +1,4 @@
-package net.nyavro.spring.social.signinmvc.model;
+package net.nyavro.spring.social.signinmvc.model.dto;
 
 import java.io.Serializable;
 import java.util.Date;

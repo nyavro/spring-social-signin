@@ -1,10 +1,8 @@
 package net.nyavro.spring.social.signinmvc.services;
 
-import net.nyavro.spring.social.signinmvc.model.Contact;
+import net.nyavro.spring.social.signinmvc.model.dto.Contact;
 import net.nyavro.spring.social.signinmvc.model.ProviderIdMapping;
-import net.nyavro.spring.social.signinmvc.model.dto.RegistrationForm;
 import net.nyavro.spring.social.signinmvc.model.User;
-import net.nyavro.spring.social.signinmvc.services.DuplicateEmailException;
 
 public interface UserService {
 

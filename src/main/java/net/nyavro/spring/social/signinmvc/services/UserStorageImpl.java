@@ -3,6 +3,7 @@ package net.nyavro.spring.social.signinmvc.services;
 import net.nyavro.spring.social.signinmvc.model.User;
 import org.springframework.stereotype.Service;
 
+@Deprecated
 @Service
 public class UserStorageImpl implements UserStorage {
     @Override

@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import java.net.UnknownHostException;
 
@@ -31,6 +32,16 @@ public class MongoConfig extends AbstractMongoConfiguration {
 
     public Mongo mongo() throws UnknownHostException {
         return new MongoClient(mongoHost, mongoPort);
+    }
+
+    @Bean
+    public LocalValidatorFactoryBean validator() {
+        return new LocalValidatorFactoryBean();
+    }
+
+    @Bean
+    public UserValidation userValidation() {
+        return new UserValidation();
     }
 
     @Bean

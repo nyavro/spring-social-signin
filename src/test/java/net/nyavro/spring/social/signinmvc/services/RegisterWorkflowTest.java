@@ -1,8 +1,10 @@
 package net.nyavro.spring.social.signinmvc.services;
 
 import net.nyavro.spring.social.signinmvc.config.ApplicationTestContext;
+import net.nyavro.spring.social.signinmvc.model.SocialMediaService;
 import net.nyavro.spring.social.signinmvc.model.User;
 import net.nyavro.spring.social.signinmvc.model.dto.Auth;
+import net.nyavro.spring.social.signinmvc.model.dto.RegistrationForm;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Before;
@@ -35,6 +37,12 @@ public class RegisterWorkflowTest {
     @Mock
     private UserStorage storage;
 
+    @Mock
+    private ExternalProvider provider;
+
+    @Mock
+    private AuthHolder authHolder;
+
     @Autowired
     @InjectMocks
     private RegisterWorkflow workflow;
@@ -60,13 +68,21 @@ public class RegisterWorkflowTest {
 
     @Test
     public void userRegistersLocally() {
+        final String email = "mail@somemail.ru";
         final User user = new User();
-        user.setEmail("mail@somemail.ru");
-        workflow.registerLocalUser(user);
+        user.setEmail(email);
+        final RegistrationForm form = workflow.registerLocalUser(user);
+        MatcherAssert.assertThat(form.getEmail(), Matchers.equalTo(email));
+        MatcherAssert.assertThat(form.getSignInProvider(), Matchers.equalTo(SocialMediaService.LOCAL));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void noEmailLocalRegistrationFails() {
-        workflow.registerLocalUser(new User());
+    @Test
+    public void userRegistersExternally() {
+        final String service = "odnotwit";
+        final Auth auth = new Auth();
+        auth.setId("id567");
+        Mockito.when(provider.authenticate(service)).thenReturn(auth);
+//        MatcherAssert.assertThat(workflow.externalLogIn(service), Matchers.equalTo(AuthResult.REGISTER));
+
     }
 }

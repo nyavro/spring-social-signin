@@ -15,6 +15,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -35,6 +37,7 @@ public class UserRepositoryTest {
         final User user = new User();
         final String login = "eny";
         user.setLogin(login);
+        user.setEmail("user@mail.ru");
         repository.save(user);
         final Iterator<User> all = repository.findAll().iterator();
         MatcherAssert.assertThat(all.hasNext(), Matchers.is(true));
@@ -77,6 +80,27 @@ public class UserRepositoryTest {
         MatcherAssert.assertThat(
             repository.findByProviderIdMappings(mapping).getLast(),
             Matchers.is("other234")
+        );
+    }
+
+    @Test(expected = ConstraintViolationException.class)
+    public void saveWithNullEmailFails() {
+        repository.save(
+            init(null, "other345")
+        );
+    }
+
+    @Test(expected = ConstraintViolationException.class)
+    public void saveWithEmptyEmailFails() {
+        repository.save(
+            init("", "other456")
+        );
+    }
+
+    @Test(expected = ConstraintViolationException.class)
+    public void saveWithInvalidEmailFails() {
+        repository.save(
+                init("invalidEmail", "other567")
         );
     }
 

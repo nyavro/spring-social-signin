@@ -1,7 +1,7 @@
 package net.nyavro.spring.social.signinmvc.utils;
 
 
-import net.nyavro.spring.social.signinmvc.model.Contact;
+import net.nyavro.spring.social.signinmvc.model.dto.Contact;
 import net.nyavro.spring.social.signinmvc.model.User;
 
 public class Converter {

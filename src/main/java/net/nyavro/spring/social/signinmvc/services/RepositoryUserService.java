@@ -1,6 +1,6 @@
 package net.nyavro.spring.social.signinmvc.services;
 
-import net.nyavro.spring.social.signinmvc.model.Contact;
+import net.nyavro.spring.social.signinmvc.model.dto.Contact;
 import net.nyavro.spring.social.signinmvc.model.ProviderIdMapping;
 import net.nyavro.spring.social.signinmvc.repository.UserRepository;
 import net.nyavro.spring.social.signinmvc.model.User;
