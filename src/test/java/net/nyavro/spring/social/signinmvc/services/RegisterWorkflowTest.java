@@ -1,6 +1,7 @@
 package net.nyavro.spring.social.signinmvc.services;
 
 import net.nyavro.spring.social.signinmvc.config.ApplicationTestContext;
+import net.nyavro.spring.social.signinmvc.model.ProviderIdMapping;
 import net.nyavro.spring.social.signinmvc.model.SocialMediaService;
 import net.nyavro.spring.social.signinmvc.model.User;
 import net.nyavro.spring.social.signinmvc.model.dto.Auth;
@@ -68,12 +69,8 @@ public class RegisterWorkflowTest {
 
     @Test
     public void userRegistersLocally() {
-        final String email = "mail@somemail.ru";
-        final User user = new User();
-        user.setEmail(email);
-        final RegistrationForm form = workflow.registerLocalUser(user);
-        MatcherAssert.assertThat(form.getEmail(), Matchers.equalTo(email));
-        MatcherAssert.assertThat(form.getSignInProvider(), Matchers.equalTo(SocialMediaService.LOCAL));
+        workflow.registerLocalUser();
+        Mockito.verify(authHolder, Mockito.times(1)).unAuthenticate();
     }
 
     @Test
@@ -81,8 +78,10 @@ public class RegisterWorkflowTest {
         final String service = "odnotwit";
         final Auth auth = new Auth();
         auth.setId("id567");
+        auth.setSignInProvider(SocialMediaService.FACEBOOK);
         Mockito.when(provider.authenticate(service)).thenReturn(auth);
-//        MatcherAssert.assertThat(workflow.externalLogIn(service), Matchers.equalTo(AuthResult.REGISTER));
-
+        final User user = workflow.registerExternalUser(service);
+        Mockito.verify(authHolder, Mockito.times(1)).unAuthenticate();
+        MatcherAssert.assertThat(user.getProviderIdMappings(), Matchers.hasItem(new ProviderIdMapping("id567", SocialMediaService.FACEBOOK)));
     }
 }

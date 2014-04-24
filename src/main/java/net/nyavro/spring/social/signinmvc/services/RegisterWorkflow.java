@@ -7,5 +7,8 @@ import net.nyavro.spring.social.signinmvc.model.dto.RegistrationForm;
  * Created by eny on 3/28/14.
  */
 public interface RegisterWorkflow {
-    RegistrationForm registerLocalUser(User user);
+
+    User registerLocalUser();
+
+    User registerExternalUser(String service);
 }
