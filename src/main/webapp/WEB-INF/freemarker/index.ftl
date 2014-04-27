@@ -1,6 +1,5 @@
 <#import "/spring.ftl" as spring/>
 <#assign baseUrl><@spring.url ""/></#assign>
-
 <#import "commons.ftl" as commons/>
 <#import "components/menu.ftl" as menu/>
 <#import "components/category.ftl" as category/>

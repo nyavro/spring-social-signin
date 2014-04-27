@@ -7,6 +7,9 @@
             $scope.onLogin = function() {
                 $('#loginModal').modal('show');
             }
+            <#if error??>
+                $scope.onLogin();
+            </#if>
         }
     </script>
     <div class='navbar navbar-fixed-top' ng-controller="MenuController">

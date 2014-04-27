@@ -1,7 +1,6 @@
 package net.nyavro.spring.social.signinmvc.config;
 
 import net.nyavro.spring.social.signinmvc.repository.UserRepository;
-import net.nyavro.spring.social.signinmvc.services.RepositoryUserDetailsService;
 import net.nyavro.spring.social.signinmvc.services.SimpleSocialUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -63,7 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void registerAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(socialUserDetailsService()).passwordEncoder(passwordEncoder());
     }
 
     @Bean
@@ -72,12 +71,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public SocialUserDetailsService socialUserDetailsService() {
-        return new SimpleSocialUserDetailsService(userDetailsService());
+    public SimpleSocialUserDetailsService socialUserDetailsService() {
+        return new SimpleSocialUserDetailsService();
     }
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return new RepositoryUserDetailsService(userRepository);
-    }
 }

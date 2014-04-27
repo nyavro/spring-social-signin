@@ -19,8 +19,10 @@ public class MainController extends CommonController {
     }
 
     @RequestMapping("/login")
-    public String login(@RequestParam(value = "login_error", required = false) Boolean loginError, Model model) {
-        model.addAttribute("error", loginError);
+    public String login(@RequestParam(required = false) String error, Model model) {
+        if(error!=null) {
+            model.addAttribute("error", error);
+        }
         return "/index";
     }
 }

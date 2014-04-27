@@ -60,7 +60,9 @@ public class SocialConfig implements SocialConfigurer {
         ConnectionSignUp signUp = new ConnectionSignUp() {
             @Override
             public String execute(Connection<?> connection) {
-                return connection.fetchUserProfile().getEmail();
+                final String email = connection.fetchUserProfile().getEmail();
+                return connection.getKey().getProviderId() + ":" +
+                       ((null==email) ? connection.fetchUserProfile().getUsername() : email);
             }
         };
         repository.setConnectionSignUp(signUp);
