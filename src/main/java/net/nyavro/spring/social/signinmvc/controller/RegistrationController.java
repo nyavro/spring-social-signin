@@ -71,12 +71,11 @@ public class RegistrationController {
         return "/register";
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String create(final @Valid User user, final BindingResult result, final Model model)
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public String create(final Auth auth, final BindingResult result, final Model model)
             throws Exception {
         if (!result.hasErrors()) {
-            user.setRegistered(new Date());
-            service.create(user);
+            service.create(convert(auth));
         } else {
             final List<String> errors = new ArrayList<>();
             for (ObjectError objError : result.getAllErrors()) {
@@ -85,6 +84,18 @@ public class RegistrationController {
             model.addAttribute("errors", errors);
         }
         return "/index";
+    }
+
+    private User convert(final Auth auth) {
+        final User user = new User();
+        user.setFirst(auth.getFirst());
+        user.setCity(auth.getCity());
+        user.setEmail(auth.getEmail());
+        user.setLast(auth.getLast());
+        user.setCompany(auth.getCompany());
+        user.setLogin(auth.getLogin());
+        user.setPassword(auth.getPassword());
+        return user;
     }
 
     private Auth convert(final Connection<?> connection) {

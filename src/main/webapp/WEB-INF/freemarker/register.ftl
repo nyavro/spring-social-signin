@@ -27,7 +27,7 @@
                     <div class="control-group">
                         <label class="control-label" for="inputPassword">Пароль</label>
                         <div class="controls">
-                            <input type="password" id="inputPassword" name="password">
+                            <input type="password" id="inputPassword" name="password" ng-model="user.password">
                         </div>
                     </div>
                     <div class="control-group">
@@ -67,7 +67,6 @@
                             <input type="text" id="lastname" ng-model="user.last" name="last">
                         </div>
                     </div>
-                    {{user.city}}
                     <div class="control-group">
                         <label class="control-label" for="name">Имя {{user.private && " " || "представителя"}}</label>
                         <div class="controls">

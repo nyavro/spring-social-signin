@@ -1,3 +1,4 @@
+<#assign baseUrl><@spring.url ""/></#assign>
 <#macro loginForm>
 <div id="loginModal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-header">
@@ -31,6 +32,9 @@
         <div style="padding-left: 15px">
             Ошибка: ${Session.SPRING_SECURITY_LAST_EXCEPTION.message}<br/>
             Неверный логин или пароль
+
+            <a href="${baseUrl}/user/register" title="Зарегистрироваться">Зарегистрироваться</a>
+            Напомнить пароль
         </div>
     </#if>
 </div>

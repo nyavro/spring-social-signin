@@ -15,6 +15,12 @@ public class Auth {
 
     private String login;
 
+    private String city;
+
+    private String company;
+
+    private String password;
+
     private boolean isPrivate;
     private SocialMediaService signInProvider;
     private String id;
@@ -73,5 +79,29 @@ public class Auth {
 
     public String getId() {
         return id;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
