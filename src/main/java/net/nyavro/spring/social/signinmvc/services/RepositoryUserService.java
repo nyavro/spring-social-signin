@@ -5,6 +5,7 @@ import net.nyavro.spring.social.signinmvc.model.ProviderIdMapping;
 import net.nyavro.spring.social.signinmvc.repository.UserRepository;
 import net.nyavro.spring.social.signinmvc.model.User;
 import net.nyavro.spring.social.signinmvc.utils.Converter;
+import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,10 @@ public class RepositoryUserService implements UserService {
 
     @Override
     @Transactional
-    public User create(User user) {
+    public User create(User user) throws DuplicateEmailException {
+        if(!StringUtils.isEmpty(user.getEmail()) && userRepository.findByEmail(user.getEmail())!=null) {
+            throw new DuplicateEmailException(user.getEmail());
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setLastSeen(new Date());
         return userRepository.save(user);
