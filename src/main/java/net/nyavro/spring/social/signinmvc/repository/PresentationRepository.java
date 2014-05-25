@@ -1,6 +1,6 @@
 package net.nyavro.spring.social.signinmvc.repository;
 
-import net.nyavro.spring.social.signinmvc.model.Presentation;
+import com.nyavro.dienstleustigen.model.Presentation;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

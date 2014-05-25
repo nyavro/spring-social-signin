@@ -1,6 +1,6 @@
 package net.nyavro.spring.social.signinmvc.services;
 
-import net.nyavro.spring.social.signinmvc.model.Presentation;
+import com.nyavro.dienstleustigen.model.Presentation;
 import net.nyavro.spring.social.signinmvc.repository.PresentationRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;

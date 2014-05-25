@@ -1,7 +1,6 @@
 package net.nyavro.spring.social.signinmvc.services;
 
-import net.nyavro.spring.social.signinmvc.model.Presentation;
-import org.springframework.stereotype.Service;
+import com.nyavro.dienstleustigen.model.Presentation;
 
 import java.util.List;
 

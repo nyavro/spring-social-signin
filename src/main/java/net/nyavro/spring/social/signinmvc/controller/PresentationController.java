@@ -1,6 +1,6 @@
 package net.nyavro.spring.social.signinmvc.controller;
 
-import net.nyavro.spring.social.signinmvc.model.Presentation;
+import com.nyavro.dienstleustigen.model.Presentation;
 import net.nyavro.spring.social.signinmvc.model.dto.CustomUserDetails;
 import net.nyavro.spring.social.signinmvc.services.PresentationService;
 import net.nyavro.spring.social.signinmvc.services.UserService;
@@ -19,6 +19,7 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Controller
 @RequestMapping(value = "/presentation", produces = MediaType.APPLICATION_JSON_VALUE)
