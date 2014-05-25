@@ -3,7 +3,7 @@
         var search = {};
         app.factory('searchService', function ($http) {
             var presentations = [];
-            $http({url: '/presentation/list', method: "GET"})
+            $http({url: '/service/list', method: "GET"})
                 .success(
                     function (data, status, headers, config) {
                         presentations = data;
@@ -12,7 +12,7 @@
                 );
 //            var presentations = $.ajax({
 //                    type: "GET",
-//                    url: '/presentation/list',
+//                    url: '/suggestion/list',
 //                    async: false
 //                });
             return {
@@ -20,7 +20,7 @@
                     search.callback = callback;
                 },
                 addCategoryFilter: function(category) {
-                    $http({url: '/presentation/search/' + category, method: "GET"})
+                    $http({url: '/suggestion/search/' + category, method: "GET"})
                         .success(
                             function (data, status, headers, config) {
                                 presentations = data;

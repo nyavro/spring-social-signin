@@ -19,7 +19,7 @@
                     <ul class="nav pull-left">
                         <li><a href="${baseUrl}/" title="Главная">Главная</a></li>
                         <#if principal?? && principal.isAuthorized()>
-                            <li><a href="${baseUrl}/presentation/" title="Личный кабинет">Личный кабинет [${principal.getUsername()}]</a></li>
+                            <li><a href="${baseUrl}/suggestion/" title="Личный кабинет">Личный кабинет [${principal.getUsername()}]</a></li>
                         <#else>
                             <li><a href="${baseUrl}/user/register" title="Регистрация">Регистрация</a></li>
                         </#if>

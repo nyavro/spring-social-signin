@@ -3,7 +3,7 @@
 <#import "commons.ftl" as commons/>
 <#import "components/menu.ftl" as menu/>
 <#import "components/category.ftl" as category/>
-<#import "components/presentations.ftl" as presentations/>
+<#import "components/suggestions.ftl" as suggestions/>
 <#import "js/search.ftl" as search/>
 
 <!doctype html>
@@ -13,6 +13,6 @@
         <@search.service/>
         <@menu.mainMenu/>
         <@category.categoryPanel/>
-        <@presentations.list/>
+        <@suggestions.list/>
     </body>
 </html>

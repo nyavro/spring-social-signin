@@ -1,9 +1,9 @@
 <#assign baseUrl><@spring.url ""/></#assign>
 <#macro list>
-    <#include "../js/presentations.ftl"/>
-    <div ng-controller="PresentationListController">
+    <#include "../js/suggestions.ftl"/>
+    <div ng-controller="SuggestionsListController">
         <div class="container">
-            <div class="suggestion-list-item" ng-repeat="suggestion in presentations">
+            <div class="suggestion-list-item" ng-repeat="suggestion in suggestions">
                 <h2>
                     <a href="${baseUrl}/suggestion/view/{{suggestion.id}}">
                         <img src="../../img/account.png"/>
@@ -19,5 +19,4 @@
             </div>
         </div>
     </div>
-    <#--<script type="text/javascript" src="../../js/presentations.js"></script>-->
 </#macro>

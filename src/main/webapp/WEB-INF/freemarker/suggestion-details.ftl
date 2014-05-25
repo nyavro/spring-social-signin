@@ -9,6 +9,6 @@
 <@commons.head/>
 <body>
         <@menu.mainMenu/>
-        <@details.presentationDetails/>
+        <@details.suggestionDetails/>
 </body>
 </html>
