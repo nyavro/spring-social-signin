@@ -8,9 +8,9 @@
                 <#--asdf-->
                 <h3>${suggestion.title()}</h3>
                 <div>${suggestion.fullDescription()}</div>
-                -<div ng-repeat="category in suggestion.category()">
+                <div ng-repeat="category in suggestion.category">
                     <div>{{category}}</div>
-                </div>=
+                </div>
             </div>
         </div>
     </div>

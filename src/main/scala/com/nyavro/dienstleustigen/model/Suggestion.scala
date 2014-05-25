@@ -11,6 +11,11 @@ class Suggestion(
   @BeanProperty var created: Date,
   @BeanProperty var published: Date,
   @BeanProperty var creator: String,
+  @BeanProperty var image: java.util.List[String],
   @BeanProperty var category: java.util.List[String]) extends Serializable {
-  def this() = this(null, null, null, null, null, null, null, null)
+  def this() = this(null, null, null, null, null, null, null, null, null)
+
+  override def toString:String = {
+    category.toString
+  }
 }

@@ -402,13 +402,6 @@
             <version>${spring.security.version}</version>
         </dependency>
 
-        <!-- Use Apache HttpClient as HTTP Client -->
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>4.2.5</version>
-        </dependency>
-
         <!-- Spring Social -->
         <dependency>
             <groupId>org.springframework.social</groupId>
@@ -636,6 +629,11 @@
             <groupId>com.jcabi</groupId>
             <artifactId>jcabi-log</artifactId>
             <version>0.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.scalatest</groupId>
+            <artifactId>scalatest_2.11.0-M3</artifactId>
+            <version>1.9.1</version>
         </dependency>
     </dependencies>
 </project>

@@ -94,11 +94,6 @@ public class SuggestionController extends CommonController {
         Logger.debug(this, "Loading presentation for view: {}", id);
         final Suggestion suggestion = suggestionService.findById(id);
         model.addAttribute("suggestion", suggestion);
-        List<String> list = new ArrayList<>();
-        list.add("first");
-        list.add("second");
-        list.add("third");
-        suggestion.setCategory(list);
         model.addAttribute("providerContact", userService.getContact(suggestion.getCreator()));
         model.addAttribute("edit", false);
         return "suggestion-details";
