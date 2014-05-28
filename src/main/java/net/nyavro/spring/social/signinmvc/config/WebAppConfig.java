@@ -18,7 +18,7 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import java.util.Properties;
 
 @Configuration
-@ComponentScan(basePackages = {"net.nyavro.spring.social.signinmvc.controller"})
+@ComponentScan(basePackages = {"net.nyavro.spring.social.signinmvc.controller", "com.nyavro.dienstleustigen.controller"})
 @EnableWebMvc
 public class WebAppConfig extends WebMvcConfigurerAdapter {
 

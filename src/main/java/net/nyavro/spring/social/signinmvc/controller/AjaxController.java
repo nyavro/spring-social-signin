@@ -1,7 +1,7 @@
 package net.nyavro.spring.social.signinmvc.controller;
 
+import com.nyavro.dienstleustigen.service.CategoryService;
 import net.nyavro.spring.social.signinmvc.model.Category;
-import net.nyavro.spring.social.signinmvc.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
