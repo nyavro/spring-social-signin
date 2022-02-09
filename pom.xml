@@ -62,7 +62,7 @@
     </pluginRepositories>
 
     <properties>
-        <hibernate.version>4.2.4.Final</hibernate.version>
+        <hibernate.version>5.4.24.Final</hibernate.version>
         <liquibase.version>3.0.2</liquibase.version>
         <mysql.connector.version>8.0.16</mysql.connector.version>
         <slf4j.version>1.7.5</slf4j.version>
