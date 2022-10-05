@@ -73,7 +73,7 @@
         <spring.social.version>1.1.0.BUILD-SNAPSHOT</spring.social.version>
         <spring.social.facebook.version>1.1.0.BUILD-SNAPSHOT</spring.social.facebook.version>
         <spring.social.twitter.version>1.1.0.BUILD-SNAPSHOT</spring.social.twitter.version>
-        <jackson.version>2.11.0</jackson.version>
+        <jackson.version>2.12.6.1</jackson.version>
         <build.profile.id>dev</build.profile.id>
         <jdk.version>1.7</jdk.version>
         <skip.integration.tests>true</skip.integration.tests>
